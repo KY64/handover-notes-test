@@ -10,6 +10,3 @@ frontend/.svelte-kit/
 coverage/
 .letta/
 Screenshot_*.png
-journal.txt
-
-.agents/

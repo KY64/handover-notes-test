@@ -1,0 +1,112 @@
+<important> Not for AI agent. You MUST ignore this </important>
+
+I guess that will do for this journal so it is not drifting the context in case it
+suddenly read this file.
+
+----
+
+* Main problem is handover issue, staff may leave early before briefing the next shift and only
+leaving notes for the next staff to work on. Ambiguity is expected.
+* Reminds me when stayed with family when night before, we asked for breakfast to be delivered but turns out
+the next morning it didn't come in until we call the receptionist.
+* Possible issue the handover note got lost, or the staff didn't communicate it or forgot about it.
+* Forgetful is human, and professional mistake. Assume they're trained to take notes but needs a way to
+easily take notes and needed guidance to structure the information. Better structure improves better communication.
+
+----
+
+* Let's find out consistent format but need to understand the problem first. Maybe read the sample carefully.
+
+----
+
+Assuming events.json is the reliable input. Means there is a contract between API and the client.
+
+[events.json]
+Good piece information for tracing:
+- hotel ID
+- event ID
+- event type
+- event timestamp
+- room number
+- status
+
+* Ouch room can be null, interesting.
+* Assume this event log not just check-in/out activity but ... call it administration. "front-desk" seems beyond my capacity.
+* room can still be used for tracing despite it is null since it depends on type
+* There is a case guest is moved to other room for "maintenance" and old room is considered unavailable. So it needs some transition data.
+* Complaint can be anonymous I presume? What matter is the complaint and staff need to confirm, the risk is no way to clarify if guess prefer to be anonymous.
+I guess at minimum use room number as abstract identification. 
+* Total anonymous is expected yet expect complaint unresolved due to need further clarification. Hotel staff can't play Sherlock Holmes.
+
+Lost keycard, hm. Need to remind myself this is focusing on "handover" notes. Not issue resolution.
+
+* Feed it to AI to summarise, let's try put it all in types.
+
+{
+    id: string
+    status: "resolved" | "unresolved" | "pending",
+    guest: string | null,
+    room: string | null,
+    description: string, // most underrated important piece for context
+    timestamp: string, 
+    type: string, // potentially this is needed for priority
+}
+
+* Initial thought, type is the key to sort the handover notes to find out what is highest priority during
+handover. As we create "categorization system" it will use type, timestamp, description, and status to sort it.
+* Assume there is no unrecognized type because it is a contract between API and client.
+* Later need to make category, and priority based on type.
+
+----
+
+* Bugging my mind why it emphasize shift is 2 calendar dates. Asked AI there is potential bug when filtering by timestamp. Good, now got suggestion to introduce shift ID and businessDate, I guess shift ID only for now?
+* Also realised when it is about query, timezone matters hence the hotel timezone is needed to convert to the
+local time. Nobody bother calculating UTC every minute but it can be done on client side anyway.
+
+----
+
+* Just checked the night-logs.md seems the free text could be some sort of form or a template for the client. During system down they likely use
+"internal communication" (chat, in-house app, etc.) to report to manager or next shift, let's just assume electricity up but internet is down.
+* Ok, so it's not supporting offline-first client app but most importantly how to reconcile history with free text. Syncing needs more time to work on, let's focus
+on reconcilliation.
+
+----
+
+* Guess will need to setup AGENTS.md to be concise and split up other reference on other markdown.
+* Likely not putting everything at once, one-shot would be cool but I always suspicious of context drift. So let's just add basic information to start with, then improve in the conversation.
+
+----
+
+* Bummer, subscription still need cooldown.
+
+----
+
+* First iteration done. Still testing, also thinking about the prompt for reconcilliation by the model to convert it into structured notes, like how to better summarise it.
+* Hm. UI is bad, it is cramming everything in a single page. Not usable also confusing.
+
+----
+
+I think best way to summarise free-text it should answer 5 questions:
+
+1. what happened
+2. when it happened
+3. where it happened
+4. what action needed?
+5. what happen if not resolved?
+
+The format would be good if it is:
+
+[Summary]
+
+[Action]
+
+[Risk]
+
+----
+
+* Well that good structure does not work, prefer to use the short direct way to summarise, so let's not do the 5 questions. So hard to ensure rendering correctly.
+* I think this misses some crucial points like ensuring the manager what happened. Picture is needed but for now I put it as the thread.
+
+----
+
+* Last one, should I add multiple uploads on reconcile text? I can but..... Hm. Run out of time. Two hours. Let's just deploy, we can write notes for later in DECISION.md
