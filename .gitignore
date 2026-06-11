@@ -13,3 +13,4 @@ Screenshot_*.png
 journal.txt
 
 .agents/
+.npmrc
