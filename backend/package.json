@@ -1,0 +1,33 @@
+{
+  "name": "@handover/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed.ts"
+  },
+  "dependencies": {
+    "@handover/shared": "file:../shared",
+    "@hono/node-server": "^1.14.4",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "hono": "^4.7.11",
+    "ioredis": "^5.6.1",
+    "jose": "^5.10.0",
+    "pg": "^8.16.2",
+    "zod": "^3.25.67",
+    "@aws-sdk/client-s3": "^3.828.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "@types/pg": "^8.15.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  }
+}

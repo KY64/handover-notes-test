@@ -1,0 +1,15 @@
+{
+  "name": "handover-shift-notes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["backend", "frontend", "shared"],
+  "scripts": {
+    "build": "npm run build --workspace @handover/shared && npm run build --workspace @handover/backend && npm run build --workspace @handover/frontend",
+    "test": "npm run test --workspace @handover/backend",
+    "dev:backend": "npm run dev --workspace @handover/backend",
+    "dev:frontend": "npm run dev --workspace @handover/frontend",
+    "db:migrate": "npm run db:migrate --workspace @handover/backend",
+    "db:seed": "npm run db:seed --workspace @handover/backend"
+  }
+}

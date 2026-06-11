@@ -1,0 +1,56 @@
+### Input Data
+
+- Structured event
+- Free text
+
+### Event type
+
+{
+    id: string
+    status: "resolved" | "unresolved" | "pending",
+    guest: string | null,
+    room: string | null,
+    description: string, // most underrated important piece for context
+    timestamp: string, 
+    shiftId: string, // This is used since one shift could be 2 calendar dates.
+    type: string, // potentially this is needed for priority
+}
+
+### What to do
+
+- Build an applications to help next shift continue task from previous shift and prioritise carry over issue.
+- The application should be able to reconcile handover notes in free-text format and convert it into a more structured format
+to keep the task handover notes consistent.
+
+### Tech Stack
+
+#### Backend
+
+- Language: Typescript
+- API Framework: HonoJS
+- Hosting: Render
+- Database: Render Postgres
+- Cache: Render Redis
+
+#### Frontend
+
+- Framework: SvelteKit Static Site
+- Hosting: Render Static Site
+
+### Reconcilliation
+
+The reconcilliation from free-text would need AI to understand it.
+I think best way to summarise it should answer 3 questions:
+
+1. what happened
+2. when it happened
+3. where it happened
+
+The format would be good if it is:
+
+[Summary]
+
+[Action]
+
+[Risk]
+
