@@ -15,7 +15,7 @@ export const config = {
   databaseUrl: process.env.DATABASE_URL ?? 'postgres://postgres:postgres@localhost:5432/postgres',
   redisUrl: process.env.REDIS_URL ?? 'redis://localhost:6379',
   jwtSecret: process.env.JWT_SECRET ?? 'dev-only-change-me-please',
-  corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
+  corsOrigins: (process.env.CORS_ORIGIN ?? 'http://localhost:5173').split(',').map((origin) => origin.trim()).filter(Boolean),
   rateLimitEnabled: process.env.RATE_LIMIT_ENABLED !== 'false',
   rateLimitWindowSeconds: numberFromEnv('RATE_LIMIT_WINDOW_SECONDS', 300),
   rateLimitMaxRequests: numberFromEnv('RATE_LIMIT_MAX_REQUESTS', 20),

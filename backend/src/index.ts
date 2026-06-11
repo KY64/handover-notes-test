@@ -11,7 +11,7 @@ import { reconcileRoutes } from './routes/reconcile.js';
 
 const app = new Hono();
 app.use('*', requestId());
-app.use('*', cors({ origin: config.corsOrigin, allowHeaders: ['Content-Type', 'Authorization'], allowMethods: ['GET', 'POST', 'PATCH', 'OPTIONS'] }));
+app.use('*', cors({ origin: config.corsOrigins, allowHeaders: ['Content-Type', 'Authorization'], allowMethods: ['GET', 'POST', 'PATCH', 'OPTIONS'] }));
 app.use('*', rateLimit);
 app.use('*', async (c, next) => {
   const start = Date.now();
