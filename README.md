@@ -54,12 +54,6 @@ sample/        Sample structured events and free-text night log
 - Optional: AWS credentials for testing image upload to S3
 - Optional: OpenRouter API key for testing reconciliation
 
-On this development machine, Node/npm may require:
-
-```bash
-source ~/node_env/bin/activate
-```
-
 ## Install dependencies
 
 ```bash
