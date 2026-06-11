@@ -60,6 +60,45 @@ sample/        Sample structured events and free-text night log
 npm install --package-lock-only=false
 ```
 
+
+## About `.npmrc` and dependency installation
+
+This repository intentionally includes a restrictive `.npmrc` to reduce supply-chain risk during day-to-day work:
+
+```ini
+allow-git=none
+allow-remote=none
+save-exact=true
+min-release-age=5
+prefer-offline=true
+prefer-dedupe=true
+init-private=true
+ignore-scripts=true
+package-lock-only=true
+```
+
+The important consequence is `package-lock-only=true`: a plain `npm install` updates/checks the lockfile but does **not** install `node_modules`.
+
+Use this command when you actually need local dependencies installed:
+
+```bash
+npm install --package-lock-only=false
+```
+
+For a clean CI/deploy install, use:
+
+```bash
+npm ci --package-lock-only=false
+```
+
+Keep `ignore-scripts=true` unless a dependency genuinely requires lifecycle scripts. If you must allow scripts for a one-off trusted install, make it explicit:
+
+```bash
+npm ci --package-lock-only=false --ignore-scripts=false
+```
+
+Do not remove the restrictive defaults casually; prefer explicit per-command overrides so risky install behavior is visible in shell history and deployment config.
+
 ## Environment variables
 
 Copy the example environment file:
