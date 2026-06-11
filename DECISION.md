@@ -12,6 +12,7 @@
 # Not Yet Done
 
 - Support multiple images on reconcile text
+- Support multiple hotels and timezone
 - Support RBAC so manager can have full access (e.g. delete task), while staff can only add new threads and update status.
 - AI to consider whether the reconcilliation has enough information or missing piece
 - AI based suggestion on what is the risk and action to do
