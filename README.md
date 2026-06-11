@@ -216,6 +216,31 @@ To test free-text reconciliation:
 
 The staff-selected shift ID is the source of truth for reconciled notes. Model-inferred timestamps are stored on the event, but `shift_id` and `business_date` come from the reconciliation form.
 
+### Generate handover via curl
+
+Fetch the current handover task list:
+
+```bash
+curl http://localhost:8787/events
+```
+
+Filter by status or room:
+
+```bash
+# Only unresolved tasks
+curl "http://localhost:8787/events?status=unresolved"
+
+# Tasks for a specific room
+curl "http://localhost:8787/events?room=205"
+
+# Combine filters
+curl "http://localhost:8787/events?status=pending&room=310"
+```
+
+Valid `status` values: `resolved`, `unresolved`, `pending`.
+
+The response returns all matching events sorted by priority (`critical` > `high` > `medium` > `low`), with tie-breaks by timestamp. No authentication is required for this endpoint.
+
 ## Verification commands
 
 Build everything:
